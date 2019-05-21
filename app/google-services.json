@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1070263792037",
+    "firebase_url": "https://bankapp-d4005.firebaseio.com",
+    "project_id": "bankapp-d4005",
+    "storage_bucket": "bankapp-d4005.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070263792037:android:27d2b18eb23db18c",
+        "android_client_info": {
+          "package_name": "com.example.bankapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070263792037-h9kho8eoesrguk4ihhf8uubhap2dgjoi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bankapp",
+            "certificate_hash": "ddc525de7efc36ac28f8b15ea28e48e750cc4073"
+          }
+        },
+        {
+          "client_id": "1070263792037-873ti6uof11ere67ljq3sb31mojg93nt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQd6DyoaLiDoShOMBBnvAtDRTRXWDlJdo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070263792037-873ti6uof11ere67ljq3sb31mojg93nt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
