@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">@android:color/holo_blue_light</color>
+    <color name="colorStart">@android:color/white</color>
+    <color name="colorEnd">@android:color/holo_blue_dark</color>
+    <color name="colorPrimaryDark">@android:color/holo_blue_light</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="active">#14D606</color>
+    <color name="inactive">#F30A0A</color>
+    <color name="locked">#5C5656</color>
+    <color name="grey">#CFCFCF</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
 </resources>

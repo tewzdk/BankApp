@@ -5,28 +5,51 @@
 
 
 
-    <item android:title="Communicate">
+    <item android:title="Navigation">
         <menu>
             <group android:checkableBehavior="single">
 
+
                 <item
-                    android:id="@+id/nav_camera"
-                    android:icon="@drawable/ic_menu_camera"
-                    android:title="Import" />
+                    android:id="@+id/nav_accounts"
+                    android:icon="@drawable/ic_account_card"
+                    android:title="Accounts" />
                 <item
-                    android:id="@+id/nav_gallery"
-                    android:icon="@drawable/ic_menu_gallery"
-                    android:title="Gallery" />
-                <item
-                    android:id="@+id/nav_slideshow"
-                    android:icon="@drawable/ic_menu_slideshow"
-                    android:title="Slideshow" />
-                <item
-                    android:id="@+id/nav_signout"
-                    android:icon="@drawable/ic_logout"
-                    android:title="Sign Out" />
+                    android:id="@+id/nav_profile"
+                    android:icon="@drawable/ic_manage_account"
+                    android:title="Profile" />
+
+
             </group>
         </menu>
     </item>
+
+    <item android:title="Settings">
+        <menu>
+        <group android:checkableBehavior="single">
+
+            <item
+                android:id="@+id/nav_rules"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Change Rules"
+            />
+
+            <item
+                android:id="@+id/nav_add_account"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Add Account" />
+
+        </group>
+        </menu>
+    </item>
+
+
+    <group>
+        <item
+            android:id="@+id/nav_signout"
+            android:icon="@drawable/ic_logout"
+            android:title="Sign Out" />
+
+    </group>
 
 </menu>

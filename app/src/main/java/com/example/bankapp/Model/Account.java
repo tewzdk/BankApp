@@ -1,6 +1,8 @@
 package com.example.bankapp.Model;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 public class Account {
 
@@ -12,9 +14,11 @@ public class Account {
     public Account() {
     }
 
-    public Account(String accountType, BigDecimal balance, boolean accountActive) {
+
+
+    public Account( boolean accountActive, String accountType, String balance) {
         this.accountType = accountType;
-        this.balance = balance;
+        this.balance =  new BigDecimal(balance);
         this.accountActive = accountActive;
     }
 
@@ -28,6 +32,13 @@ public class Account {
 
     public BigDecimal getBalance() {
         return balance;
+    }
+
+    public Double getBalanceAsDouble() {
+
+        Double d = balance.doubleValue();
+
+        return  d;
     }
 
     public void setBalance(BigDecimal balance) {

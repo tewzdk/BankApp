@@ -2,8 +2,57 @@
     <string name="app_name">BankApp</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Kea Bank App</string>
+    <string name="nav_header_subtitle">firebase@firebase.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="pension_alert">You must be at the age of atleast 77 to withdraw from this account</string>
+    <string name="account_display">
+        %1$s Account
+    </string>
+    <string name="balance_display">
+        Balance: %1$s
+    </string>
+    <string name="activate">Activate</string>
+    <string name="deactivate">Deactivate</string>
+    <string name="locked">Need affiliate</string>
+    <string-array name="affiliates">
+        <item>Odense</item>
+        <item>Copenhagen</item>
+    </string-array>
+
+
+
+    <!-- Login and Create user Strings -->
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_pw">Enter Password</string>
+    <string name="match_pws">Passwords must match</string>
+
+    <!-- WIDGETS -->
+    <string name="enter_nem_id">INSERT KEY</string>
+    <string name="submit">Submit</string>
+    <string name="save">Save</string>
+    <string name="remove_bill">Remove Bill</string>
+    <string name="add_bill">Add Bill</string>
+    <string name="bills">Bills</string>
+    <string name="set_budget">Set Budget</string>
+    <string name="set_savings">Set Savings</string>
+    <string name="reset">Reset</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="repeat_pw">Repeat Password</string>
+    <string name="firstname">Write your firstname</string>
+    <string name="lastname">Write your lastname</string>
+    <string name="phone">Write your phone number</string>
+    <string name="balance">Balance</string>
+    <string name="amount">Amount</string>
+    <string name="to_reciever">To reciever</string>
+    <string name="own_account">Own Account</string>
+    <string name="other_account">Other Account</string>
+    <string name="cancel">CANCEL</string>
+    <string name="ok">OK</string>
+
+
+
+
 </resources>

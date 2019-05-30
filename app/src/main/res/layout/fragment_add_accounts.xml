@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/defaultView2"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:text="defaultVIEW"
+        android:gravity="center"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/cardview_light_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/savingsView2"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:text="savingsVIEW"
+        android:textSize="22dp"
+        android:visibility="gone"
+        android:gravity="center"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/cardview_light_background"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/defaultButton" />
+
+    <TextView
+        android:id="@+id/budgetView2"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:text="budgetVIEW"
+        android:textSize="22dp"
+        android:visibility="gone"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/cardview_light_background"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/savingsButton" />
+
+    <TextView
+        android:id="@+id/pensionView2"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:text="pensionVIEW"
+        android:textSize="22dp"
+        android:visibility="gone"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/cardview_light_background"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/budgetButton" />
+
+    <TextView
+        android:id="@+id/businessView2"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:padding="5dp"
+        android:text="businessVIEW"
+        android:textSize="22dp"
+        android:visibility="gone"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/cardview_light_background"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pensionButton" />
+
+    <Button
+        android:id="@+id/defaultButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/inactive"
+        android:onClick="onClick"
+        android:text="@string/activate"
+        android:visibility="gone"
+        android:textColor="@color/colorStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/defaultView2" />
+
+    <Button
+        android:id="@+id/savingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/activate"
+        android:background="@color/inactive"
+        android:textColor="@color/colorStart"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:onClick="onClick"
+        tools:layout_editor_absoluteX="41dp"
+        tools:layout_editor_absoluteY="469dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/savingsView2"/>
+    <Button
+        android:id="@+id/budgetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/activate"
+        android:background="@color/inactive"
+        android:textColor="@color/colorStart"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:onClick="onClick"
+        tools:layout_editor_absoluteX="41dp"
+        tools:layout_editor_absoluteY="469dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/budgetView2"/>
+    <Button
+        android:id="@+id/pensionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/activate"
+        android:background="@color/inactive"
+        android:textColor="@color/colorStart"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:onClick="onClick"
+        tools:layout_editor_absoluteX="41dp"
+        tools:layout_editor_absoluteY="469dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pensionView2"/>
+
+    <Button
+        android:id="@+id/businessButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/activate"
+        android:background="@color/inactive"
+        android:textColor="@color/colorStart"
+        android:visibility="gone"
+        android:onClick="onClick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/businessView2" />
+
+</android.support.constraint.ConstraintLayout>
+</ScrollView>

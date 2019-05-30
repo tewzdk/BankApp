@@ -14,8 +14,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_logout" />
-                            <entry key="sourceFile" value="C:\Users\Lenovo\Downloads\logout.svg" />
+                            <entry key="height" value="259" />
+                            <entry key="outputName" value="ic_manage_account" />
+                            <entry key="overrideSize" value="true" />
+                            <entry key="sourceFile" value="C:\Users\Lenovo\Downloads\user.svg" />
+                            <entry key="width" value="259" />
                           </map>
                         </option>
                       </PersistentState>

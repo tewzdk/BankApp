@@ -1,10 +1,12 @@
 package com.example.bankapp.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,42 +17,46 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-
+import com.example.bankapp.Fragments.AccountsFragment;
+import com.example.bankapp.Fragments.ManageFragment;
+import com.example.bankapp.Fragments.RulesFragment;
+import com.example.bankapp.Fragments.UserFragment;
+import com.example.bankapp.Model.Bill;
 import com.example.bankapp.R;
-
+import com.example.bankapp.Repository.Repository;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private final static String TAG = "AccountsActivity";
+    private final static String TAG = "AccountsFragment";
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    private TextView nav_user;
+    private String userEmail;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-    TextView userEmail;
     private FirebaseAuth mAuth;
-
-
+    private Repository repo;
+    public SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //INITIALIZING FBASE
         mAuth = FirebaseAuth.getInstance();
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        sharedPref = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        userEmail = user.getEmail();
+        repo = new Repository(db,sharedPref,userEmail);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -60,6 +66,12 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        //getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new AccountsFragment()).commit();
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new AccountsFragment()).commit();
+        }
+
     }
 
     @Override
@@ -76,6 +88,8 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        nav_user = findViewById(R.id.nav_user);
+        nav_user.setText(userEmail);
         return true;
     }
 
@@ -100,12 +114,19 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            //getSupportFragmentManager().beginTransaction().replace(R.id.content_main, new MainActivity())
+        if (id == R.id.nav_profile) {
+            Log.d(TAG,"Going to UserFragment");
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new UserFragment()).commit();
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_accounts) {
+            Log.d(TAG,"Going to AccountsFragment");
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new AccountsFragment()).commit();
+        } else if (id == R.id.nav_add_account) {
+            Log.d(TAG,"Going to ManageFragment");
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new ManageFragment()).commit();
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_rules){
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new RulesFragment()).commit();
 
         } else if (id == R.id.nav_signout) {
             signOut();
@@ -122,6 +143,8 @@ public class MainActivity extends AppCompatActivity
         FirebaseAuth.getInstance().signOut();
         startActivity(i);
     }
+
+
 
 
 }

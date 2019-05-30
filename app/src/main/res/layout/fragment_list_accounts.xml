@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/defaultView"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/activate"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/savingsView"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/activate"
+        android:textSize="22sp"
+        android:visibility="gone"
+        android:gravity="center"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/defaultBalance" />
+
+    <TextView
+        android:id="@+id/budgetView"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/activate"
+        android:textSize="22sp"
+        android:visibility="gone"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/savingsBalance" />
+
+    <TextView
+        android:id="@+id/pensionView"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/activate"
+        android:textSize="22sp"
+        android:visibility="gone"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/budgetBalance" />
+
+    <TextView
+        android:id="@+id/pensionAlert"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:gravity="center"
+        android:text="@string/pension_alert"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pensionView" />
+
+    <TextView
+        android:id="@+id/businessView"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:padding="5dp"
+        android:text="@string/activate"
+        android:textSize="22sp"
+        android:visibility="gone"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pensionBalance" />
+
+
+    <TextView
+        android:id="@+id/defaultBalance"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="0dp"
+        android:padding="5dp"
+        android:text="@string/balance"
+        android:textSize="22sp"
+        android:visibility="gone"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/defaultView" />
+
+    <TextView
+        android:id="@+id/savingsBalance"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="0dp"
+        android:padding="5dp"
+        android:text="@string/balance"
+        android:textSize="22sp"
+        android:visibility="gone"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/savingsView" />
+
+    <TextView
+        android:id="@+id/budgetBalance"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="0dp"
+        android:padding="5dp"
+        android:text="@string/balance"
+        android:textSize="22sp"
+        android:visibility="gone"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/budgetView" />
+
+
+    <TextView
+        android:id="@+id/pensionBalance"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="0dp"
+        android:padding="5dp"
+        android:text="@string/balance"
+        android:textSize="22sp"
+        android:visibility="gone"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pensionAlert" />
+
+    <TextView
+        android:id="@+id/businessBalance"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="0dp"
+        android:padding="5dp"
+        android:text="@string/balance"
+        android:textSize="22sp"
+        android:visibility="gone"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/businessView" />
+
+
+
+</android.support.constraint.ConstraintLayout>
+    </ScrollView>
