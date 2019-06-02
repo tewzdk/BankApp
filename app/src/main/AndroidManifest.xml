@@ -26,7 +26,7 @@
         </activity>
         <activity
             android:name=".Activities.MainActivity"
-            android:label="MainActivity"
+            android:label="BankApp"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

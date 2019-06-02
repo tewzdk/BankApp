@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.bankapp.Activities.MainActivity;
 import com.example.bankapp.Model.Account;
@@ -101,7 +102,7 @@ public class RulesFragment extends Fragment implements View.OnClickListener, Nem
             addBill(setBillName.getText().toString(),setBillAmount.getText().toString());
 
         } else if (id == R.id.rules_btn_remove_bill) {
-
+            removeBill(billSpinner.getSelectedItem().toString());
         }
 
     }
@@ -123,7 +124,9 @@ public class RulesFragment extends Fragment implements View.OnClickListener, Nem
                 .set(rules).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.d(TAG, "DocumentSnapshot successfully written!");
+                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                Toast toast = Toast.makeText(getContext(),"Monthly budget and savings transactions updated", Toast.LENGTH_SHORT);
+                toast.show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -133,7 +136,28 @@ public class RulesFragment extends Fragment implements View.OnClickListener, Nem
         });
     }
 
-    private void addBill(String billName, String billAmount) {
+    private void removeBill(final String billName) {
+        if (!nemId) {
+            NemIdFragment dialog = new NemIdFragment();
+            //dialog.onAttach(this.getContext());
+            dialog.setTargetFragment(this, DIALOG_FRAGMENT);
+            dialog.show(getFragmentManager(), "NemIdFragment");
+
+        } else if (nemId) {
+            db.collection("users").document(userEmail).collection("bills")
+                    .document(billName).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                    Toast toast = Toast.makeText(getContext(), billName+" has been removed from bills", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            });
+        }
+
+    }
+
+    private void addBill(final String billName, String billAmount) {
 
         if (!nemId) {
             NemIdFragment dialog = new NemIdFragment();
@@ -153,7 +177,8 @@ public class RulesFragment extends Fragment implements View.OnClickListener, Nem
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.d(TAG, "DocumentSnapshot successfully written!");
-
+                            Toast toast = Toast.makeText(getContext(), billName+" has been added to bills", Toast.LENGTH_SHORT);
+                            toast.show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override

@@ -159,7 +159,7 @@ public class ManageFragment extends Fragment implements View.OnClickListener {
 
                                 } else if (account.getAccountType().equalsIgnoreCase("Savings")) {
 
-                                    savingsView.setText(account.getAccountType());
+                                    savingsView.setText(getString(R.string.account_display, account.getAccountType()));
 
                                     if (account.isAccountActive()) {
                                         savingsButton.setBackgroundColor(getResources().getColor(R.color.active));

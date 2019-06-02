@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bankapp.Model.Account;
 import com.example.bankapp.R;
@@ -90,8 +91,8 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
 
         } else if (id == R.id.transaction_button) {
             String recipient;
-
-            if (!transactionAmount.getText().toString().equalsIgnoreCase("")) {
+            if (Integer.parseInt(transactionAmount.getText().toString())<=Integer.parseInt(accountBalance.getText().toString())) {
+                if (!transactionAmount.getText().toString().equalsIgnoreCase("")) {
                     Log.d(TAG, "Here START");
                     int value = Integer.parseInt(transactionAmount.getText().toString());
 
@@ -99,22 +100,22 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
                         String checkIfPension = accountsSpinner.getSelectedItem().toString();
                         Log.d(TAG,"SPINNER CONTAINS: "+checkIfPension);
                         BigDecimal amount = new BigDecimal(transactionAmount.getText().toString());
-                    if (accountsSpinner.getVisibility() == View.VISIBLE && !checkIfPension.equalsIgnoreCase("Pension")) {
+                        if (accountsSpinner.getVisibility() == View.VISIBLE && !checkIfPension.equalsIgnoreCase("Pension")) {
 
-                        //THIS WILL TRANSFER WITHIN OWN ACCOUNTS
-                        recipient = accountsSpinner.getSelectedItem().toString();
-                        //transactionAmount.setText("OWN ACCOUNT");
-                        Log.d(TAG, "Here OTHER");
-                        transferOtherAccount(recipient, amount);
+                            //THIS WILL TRANSFER WITHIN OWN ACCOUNTS
+                            recipient = accountsSpinner.getSelectedItem().toString();
+                            //transactionAmount.setText("OWN ACCOUNT");
+                            Log.d(TAG, "Here OTHER");
+                            transferOtherAccount(recipient, amount);
 
-                    } else if (otherAccountSpinner.getVisibility() == View.VISIBLE || checkIfPension.equalsIgnoreCase("Pension")) {
+                        } else if (otherAccountSpinner.getVisibility() == View.VISIBLE || checkIfPension.equalsIgnoreCase("Pension")) {
 
-                        if (!otherAccountBoolen) {
-                            NemIdFragment dialog = new NemIdFragment();
-                            //dialog.onAttach(this.getContext());
-                            dialog.setTargetFragment(this, DIALOG_FRAGMENT);
-                            dialog.show(getFragmentManager(), "NemIdFragment");
-                        } else if (otherAccountBoolen) {
+                            if (!otherAccountBoolen) {
+                                NemIdFragment dialog = new NemIdFragment();
+                                //dialog.onAttach(this.getContext());
+                                dialog.setTargetFragment(this, DIALOG_FRAGMENT);
+                                dialog.show(getFragmentManager(), "NemIdFragment");
+                            } else if (otherAccountBoolen) {
 
                                 //THIS WILL TRANSFER TO OTHER USERS DEFAULT ACCOUNT
                                 Log.d(TAG, "Here THIS ACCOUNT");
@@ -122,21 +123,26 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
                                 //transactionAmount.setText("OTHER ACCOUNT");
                                 transferOtherUser(recipient, amount);
 
+                            }
                         }
+                    } catch (Exception e) {
+                        Log.d(TAG, "something went wrong");
                     }
-                } catch (Exception e) {
-                    Log.d(TAG, "something went wrong");
-                }
 
+                } else {
+                    transactionAmount.setError("Must input");
+                }
             } else {
-                transactionAmount.setError("Must input");
+                transactionAmount.setError("You cannot transfer more than your max balance");
             }
+
+
         }
 
     }
 
 
-    private void transferOtherAccount(String recipient, final BigDecimal amount) {
+    private void transferOtherAccount(final String recipient, final BigDecimal amount) {
         Log.d(TAG, "transferOtherAccount");
 
         final DocumentReference fromAccount = db.collection("users").document(userEmail).collection("accounts")
@@ -165,6 +171,8 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
                 return null;
             }
         });
+        Toast toast = Toast.makeText(getContext(), "Transferred "+amount+" to "+recipient, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     private void transferOtherUser(String recipient, final BigDecimal amount) {
@@ -189,10 +197,12 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
                 transaction.update(fromAccount, "balance", balanceFromAccount.subtract(amount).toString());
                 transaction.update(toAccount, "balance", balanceToAccount.add(amount).toString());
 
-
+                Log.d(TAG, "Success: " + balanceFromAccount + " " + balanceToAccount + " " + amount);
                 return null;
             }
         });
+        Toast toast = Toast.makeText(getContext(), "Transferred "+amount+" to "+recipient, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     public void test() {
@@ -349,7 +359,7 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
         ownAccount = v.findViewById(R.id.transaction_ownaccount);
         makeTransaction = v.findViewById(R.id.transaction_button);
 
-        accountName.setText(getString(R.string.account_display, currentAccountName));
+        accountName.setText(getString(R.string.balance_account_display, currentAccountName));
         accountBalance.setText(getArguments().getString("accountBalance"));
 
         otherAccount.setOnClickListener(this);

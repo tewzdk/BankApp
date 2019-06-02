@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity
         //getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new AccountsFragment()).commit();
 
         if (savedInstanceState == null) {
+            setTitle("BankApp Accounts");
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new AccountsFragment()).commit();
         }
 
@@ -116,16 +117,21 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_profile) {
             Log.d(TAG,"Going to UserFragment");
+            setTitle("BankApp Profile");
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new UserFragment()).commit();
             // Handle the camera action
         } else if (id == R.id.nav_accounts) {
             Log.d(TAG,"Going to AccountsFragment");
+            setTitle("BankApp Accounts");
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new AccountsFragment()).commit();
         } else if (id == R.id.nav_add_account) {
             Log.d(TAG,"Going to ManageFragment");
+            setTitle("BankApp Manage Accounts");
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new ManageFragment()).commit();
 
         } else if (id == R.id.nav_rules){
+            Log.d(TAG,"Going to RulesFragment");
+            setTitle("BankApp Change Rules");
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new RulesFragment()).commit();
 
         } else if (id == R.id.nav_signout) {

@@ -37,15 +37,17 @@ tools:context="com.example.bankapp.Fragments.TransactionFragment">
         android:textSize="30sp" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/action_ok"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:text="@string/ok"
+        android:layout_alignParentStart="false"
+        android:gravity="center"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
         android:layout_marginEnd="20dp"
-        android:textSize="18sp"
+        android:text="@string/ok"
         android:textColor="#33bbff"
-        android:id="@+id/action_ok"/>
+        android:textSize="18sp" />
 
     <TextView
         android:layout_width="wrap_content"

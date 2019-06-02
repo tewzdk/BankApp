@@ -104,6 +104,7 @@ public class AccountsFragment extends Fragment implements View.OnClickListener {
         if (i == R.id.savingsView) {
             bundle.putString("accountName", getFirstWord(savingsView.getText().toString()));
             bundle.putString("accountBalance", getFirstWord(savingsBalance.getText().toString()));
+
         } else if (i == R.id.budgetView) {
             bundle.putString("accountName", getFirstWord(budgetView.getText().toString()));
             bundle.putString("accountBalance", getFirstWord(budgetBalance.getText().toString()));
@@ -119,6 +120,7 @@ public class AccountsFragment extends Fragment implements View.OnClickListener {
         }else if (i == R.id.businessView) {
             bundle.putString("accountName", getFirstWord(businessView.getText().toString()));
             bundle.putString("accountBalance", getFirstWord(businessBalance.getText().toString()));
+
         }
 
 
