@@ -6,6 +6,7 @@ import java.text.NumberFormat;
 
 public class Account {
 
+
     private String accountType;
     private BigDecimal balance;
     private  boolean accountActive;

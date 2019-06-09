@@ -34,7 +34,6 @@ public class AuthActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseUser user;
-    private String userEmail;
 
 
     private static final String TAG = "AuthActivity";
@@ -50,15 +49,17 @@ public class AuthActivity extends AppCompatActivity {
 
         init();
         mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+
 
     }
+
 
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+        updateUI(user);
 
     }
 
@@ -125,15 +126,15 @@ public class AuthActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            FirebaseUser newUser = mAuth.getCurrentUser();
 
-                            createAccount("Savings", BigDecimal.valueOf(0), false, user.getEmail());
-                            createAccount("Budget", BigDecimal.valueOf(0), true, user.getEmail());
-                            createAccount("Pension", BigDecimal.valueOf(0), false, user.getEmail());
-                            createAccount("Default", BigDecimal.valueOf(0), true, user.getEmail());
-                            createAccount("Business", BigDecimal.valueOf(0), false, user.getEmail());
+                            createAccount("Savings", BigDecimal.valueOf(0), false, newUser.getEmail());
+                            createAccount("Budget", BigDecimal.valueOf(0), true, newUser.getEmail());
+                            createAccount("Pension", BigDecimal.valueOf(0), false, newUser.getEmail());
+                            createAccount("Default", BigDecimal.valueOf(10000), true, newUser.getEmail());
+                            createAccount("Business", BigDecimal.valueOf(0), false, newUser.getEmail());
 
-                            updateUI(user);
+                            updateUI(newUser);
 
 
                         } else {

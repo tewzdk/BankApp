@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,8 +92,9 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
 
         } else if (id == R.id.transaction_button) {
             String recipient;
-            if (Integer.parseInt(transactionAmount.getText().toString())<=Integer.parseInt(accountBalance.getText().toString())) {
-                if (!transactionAmount.getText().toString().equalsIgnoreCase("")) {
+            if (!transactionAmount.getText().toString().equalsIgnoreCase("")) {
+
+                if (Integer.parseInt(transactionAmount.getText().toString())<=Integer.parseInt(accountBalance.getText().toString())) {
                     Log.d(TAG, "Here START");
                     int value = Integer.parseInt(transactionAmount.getText().toString());
 
@@ -108,21 +110,26 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
                             Log.d(TAG, "Here OTHER");
                             transferOtherAccount(recipient, amount);
 
-                        } else if (otherAccountSpinner.getVisibility() == View.VISIBLE || checkIfPension.equalsIgnoreCase("Pension")) {
+                        }
+                        //CHECKS IF OTHER ACCOUNT SPINNER IS VISIBLE OR IF SENDING MONEY TO PENSION
+                        if (otherAccountSpinner.getVisibility() == View.VISIBLE || checkIfPension.equalsIgnoreCase("Pension")) {
 
                             if (!otherAccountBoolen) {
                                 NemIdFragment dialog = new NemIdFragment();
                                 //dialog.onAttach(this.getContext());
                                 dialog.setTargetFragment(this, DIALOG_FRAGMENT);
                                 dialog.show(getFragmentManager(), "NemIdFragment");
-                            } else if (otherAccountBoolen) {
+                            } else if (otherAccountBoolen && otherAccountSpinner.getVisibility() == View.VISIBLE) {
 
                                 //THIS WILL TRANSFER TO OTHER USERS DEFAULT ACCOUNT
                                 Log.d(TAG, "Here THIS ACCOUNT");
                                 recipient = otherAccountSpinner.getSelectedItem().toString();
                                 //transactionAmount.setText("OTHER ACCOUNT");
                                 transferOtherUser(recipient, amount);
-
+                            
+                            } else if (otherAccountBoolen && checkIfPension.equalsIgnoreCase("Pension")) {
+                                recipient = accountsSpinner.getSelectedItem().toString();
+                                transferOtherAccount(recipient,amount);
                             }
                         }
                     } catch (Exception e) {
@@ -130,10 +137,10 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
                     }
 
                 } else {
-                    transactionAmount.setError("Must input");
+                    transactionAmount.setError("You cannot transfer more than your max balance");
                 }
             } else {
-                transactionAmount.setError("You cannot transfer more than your max balance");
+                transactionAmount.setError("Must input");
             }
 
 
@@ -167,12 +174,15 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
 
 
                 Log.d(TAG, "Success: " + balanceFromAccount + " " + balanceToAccount + " " + amount);
-
+                accountBalance.setText(balanceFromAccount.subtract(amount).toString());
                 return null;
             }
         });
         Toast toast = Toast.makeText(getContext(), "Transferred "+amount+" to "+recipient, Toast.LENGTH_SHORT);
         toast.show();
+
+
+
     }
 
     private void transferOtherUser(String recipient, final BigDecimal amount) {
@@ -197,12 +207,15 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
                 transaction.update(fromAccount, "balance", balanceFromAccount.subtract(amount).toString());
                 transaction.update(toAccount, "balance", balanceToAccount.add(amount).toString());
 
+                accountBalance.setText(balanceFromAccount.subtract(amount).toString());
                 Log.d(TAG, "Success: " + balanceFromAccount + " " + balanceToAccount + " " + amount);
+
                 return null;
             }
         });
         Toast toast = Toast.makeText(getContext(), "Transferred "+amount+" to "+recipient, Toast.LENGTH_SHORT);
         toast.show();
+
     }
 
     public void test() {

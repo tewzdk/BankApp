@@ -150,6 +150,15 @@ public class RulesFragment extends Fragment implements View.OnClickListener, Nem
                 public void onSuccess(Void aVoid) {
                     Log.d(TAG, "DocumentSnapshot successfully deleted!");
                     Toast toast = Toast.makeText(getContext(), billName+" has been removed from bills", Toast.LENGTH_SHORT);
+                    for (int i = 0; i < listOfBills2.size(); i++) {
+                        if (billName.equalsIgnoreCase(listOfBills2.get(i))){
+                            listOfBills2.remove(i);
+                            break;
+                        }
+
+                    }
+                    billSpinner.setSelection(0);
+
                     toast.show();
                 }
             });
@@ -179,6 +188,7 @@ public class RulesFragment extends Fragment implements View.OnClickListener, Nem
                             Log.d(TAG, "DocumentSnapshot successfully written!");
                             Toast toast = Toast.makeText(getContext(), billName+" has been added to bills", Toast.LENGTH_SHORT);
                             toast.show();
+                            listOfBills2.add(billName);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -187,6 +197,7 @@ public class RulesFragment extends Fragment implements View.OnClickListener, Nem
                 }
             });
         }
+
     }
 
 
