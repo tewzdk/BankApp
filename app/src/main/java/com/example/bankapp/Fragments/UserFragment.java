@@ -51,9 +51,12 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private SharedPreferences sharedPref;
     private Repository repo;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+
         return inflater.inflate(R.layout.fragment_user_details,container,false);
     }
 
@@ -94,6 +97,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
 
     }
+
 
     private void getUserDetails() {
         db.collection("users").document(userEmail)
@@ -140,6 +144,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                                 phone.setText(String.valueOf(user.getPhoneNumber()));
                                 int day = Integer.parseInt(words[0]);
                                 int month = Integer.parseInt(words[1]);
+                                month = month-1;
                                 int year = Integer.parseInt(words[2]);
 
 

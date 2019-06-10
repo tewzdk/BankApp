@@ -278,4 +278,5 @@ public class ManageFragment extends Fragment implements View.OnClickListener {
         pensionButton.setOnClickListener(this);
         businessButton.setOnClickListener(this);
     }
+
 }

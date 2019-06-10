@@ -102,6 +102,8 @@ public class AccountsFragment extends Fragment implements View.OnClickListener {
         Bundle bundle = new Bundle();
 
         if (i == R.id.savingsView) {
+            
+            //bundle.putParcelable("account", account);  Can also sent a parcelable class like user or account
             bundle.putString("accountName", getFirstWord(savingsView.getText().toString()));
             bundle.putString("accountBalance", getFirstWord(savingsBalance.getText().toString()));
 
@@ -268,18 +270,6 @@ public class AccountsFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-
-        //savedInstanceState.putString("da",this.getContext());
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-
-    }
 
 
 }

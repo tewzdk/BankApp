@@ -1,13 +1,10 @@
 package com.example.bankapp.Fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.constraint.Constraints;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,9 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.example.bankapp.Activities.MainActivity;
-import com.example.bankapp.Model.Account;
 import com.example.bankapp.Model.Bill;
 import com.example.bankapp.R;
 import com.example.bankapp.Repository.Repository;
@@ -30,24 +24,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-
-import org.w3c.dom.Text;
-
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static android.content.Context.MODE_PRIVATE;
-
 
 public class RulesFragment extends Fragment implements View.OnClickListener, NemIdFragment.Communicator{
 
@@ -63,8 +47,7 @@ public class RulesFragment extends Fragment implements View.OnClickListener, Nem
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String userEmail;
-    private List<Bill> listOfBills = new ArrayList<>();
-    private List<String> listOfBills2 = new ArrayList<>();
+    private List<String> listOfBills = new ArrayList<>();
     private SharedPreferences sharedPref;
 
     @Nullable
@@ -88,8 +71,6 @@ public class RulesFragment extends Fragment implements View.OnClickListener, Nem
 
     }
 
-
-
     @Override
     public void onClick(View v) {
 
@@ -99,10 +80,20 @@ public class RulesFragment extends Fragment implements View.OnClickListener, Nem
             updateRules(setBudget.getText().toString(),setSavings.getText().toString());
         } else if (id == R.id.rules_btn_add_bill) {
 
-            addBill(setBillName.getText().toString(),setBillAmount.getText().toString());
+            if (!setBillName.getText().toString().equalsIgnoreCase("") && !setBillAmount.getText().toString().equalsIgnoreCase("")){
+                addBill(setBillName.getText().toString(),setBillAmount.getText().toString());
+            }
+            if (setBillName.getText().toString().equalsIgnoreCase("")){
+                setBillName.setError("Bill needs a name");
+            }
+            if (setBillAmount.getText().toString().equalsIgnoreCase("")){
+                setBillAmount.setError("Bill needs to have a number");
+            }
 
         } else if (id == R.id.rules_btn_remove_bill) {
-            removeBill(billSpinner.getSelectedItem().toString());
+            if (listOfBills.size() >0){
+                removeBill(billSpinner.getSelectedItem().toString());
+            }
         }
 
     }
@@ -150,9 +141,9 @@ public class RulesFragment extends Fragment implements View.OnClickListener, Nem
                 public void onSuccess(Void aVoid) {
                     Log.d(TAG, "DocumentSnapshot successfully deleted!");
                     Toast toast = Toast.makeText(getContext(), billName+" has been removed from bills", Toast.LENGTH_SHORT);
-                    for (int i = 0; i < listOfBills2.size(); i++) {
-                        if (billName.equalsIgnoreCase(listOfBills2.get(i))){
-                            listOfBills2.remove(i);
+                    for (int i = 0; i < listOfBills.size(); i++) {
+                        if (billName.equalsIgnoreCase(listOfBills.get(i))){
+                            listOfBills.remove(i);
                             break;
                         }
 
@@ -188,7 +179,8 @@ public class RulesFragment extends Fragment implements View.OnClickListener, Nem
                             Log.d(TAG, "DocumentSnapshot successfully written!");
                             Toast toast = Toast.makeText(getContext(), billName+" has been added to bills", Toast.LENGTH_SHORT);
                             toast.show();
-                            listOfBills2.add(billName);
+                            listOfBills.add(billName);
+                            billSpinner.setSelection(0);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -236,15 +228,13 @@ public class RulesFragment extends Fragment implements View.OnClickListener, Nem
                                     String accountNumber = document.getString("accountNumber");
                                     bill = new Bill(accountNumber,billAmount,billName);
                                     //bill = document.toObject(Bill.class);
-                                    listOfBills2.add(bill.getName());
-
-
+                                    listOfBills.add(bill.getName());
                                 } catch (NullPointerException nPEX){
                                     Log.w(TAG, "Got an exception while trying to retrieve account data.");
                                     return;
                                 }
                             }
-                            ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, listOfBills2);
+                            ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, listOfBills);
                             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             billSpinner.setAdapter(dataAdapter);
                         }
@@ -274,4 +264,5 @@ public class RulesFragment extends Fragment implements View.OnClickListener, Nem
     public void sendInput(boolean input) {
         nemId = input;
     }
+
 }

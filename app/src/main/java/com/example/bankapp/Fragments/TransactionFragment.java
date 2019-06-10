@@ -55,7 +55,7 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
     private Boolean otherAccountBoolen;
 
     TextView accountName, accountBalance, amountText,reciverText;
-    EditText transactionAmount, customRecipient;
+    EditText transactionAmount;
     Spinner accountsSpinner, otherAccountSpinner;
     Button makeTransaction, otherAccount, ownAccount;
 
@@ -126,7 +126,7 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
                                 recipient = otherAccountSpinner.getSelectedItem().toString();
                                 //transactionAmount.setText("OTHER ACCOUNT");
                                 transferOtherUser(recipient, amount);
-                            
+
                             } else if (otherAccountBoolen && checkIfPension.equalsIgnoreCase("Pension")) {
                                 recipient = accountsSpinner.getSelectedItem().toString();
                                 transferOtherAccount(recipient,amount);
@@ -218,69 +218,8 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
 
     }
 
-    public void test() {
-
-        final DocumentReference fromAccount = db.collection("users").document(userEmail).collection("accounts")
-                .document("Default");
-
-        final DocumentReference toBudget = db.collection("users").document(userEmail).collection("accounts")
-                .document("Budget");
-
-        final DocumentReference toSavings = db.collection("users").document(userEmail).collection("accounts")
-                .document("Savings");
-
-        final DocumentReference getRules = db.collection("users").document(userEmail).collection("rules")
-                .document("monthly");
-
-
-        db.runTransaction(new Transaction.Function<Void>() {
-            @Nullable
-            @Override
-            public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
-
-                DocumentSnapshot saveFromAccount = transaction.get(fromAccount);
-                BigDecimal balanceFromDefault = new BigDecimal(saveFromAccount.getString("balance"));
-
-                DocumentSnapshot saveToBudget = transaction.get(toBudget);
-                DocumentSnapshot saveToSavings = transaction.get(toSavings);
-
-                BigDecimal balanceFromBudget = new BigDecimal(saveToBudget.getString("balance"));
-                BigDecimal balanceFromSavings = new BigDecimal(saveToSavings.getString("balance"));
-
-                BigDecimal hundred = new BigDecimal("100");
-
-                /*
-                DocumentSnapshot saveRules = transaction.get(getRules);
-                BigDecimal monthlyBudget = new BigDecimal(saveRules.getString("monthlyBudget"));
-                BigDecimal monthlySavings = new BigDecimal(saveRules.getString("monthlyBudget"));
-                BigDecimal addedValues = monthlyBudget.add(monthlySavings);
-                */
-
-                transaction.update(fromAccount, "balance", balanceFromDefault.subtract(hundred).toString());
-                transaction.update(toBudget, "balance", balanceFromBudget.add(hundred).toString());
-                transaction.update(toSavings, "balance", balanceFromSavings.add(hundred).toString());
-                return null;
-            }
-        });
-    }
-
-    public void getAccount() {
-        Log.d(TAG, "getAccount: Has been called");
-        DocumentReference docRef = db.collection("users").document(user.getEmail())
-                .collection("accounts").document(getFirstWord(accountName.getText().toString()));
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                Account account = documentSnapshot.toObject(Account.class);
-
-                accountBalance.setText(getString(R.string.balance_display, account.getBalance()));
-
-            }
-        });
-    }
-
     private void spinners() {
+
         db.collection("users").document(userEmail).collection("accounts").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -328,8 +267,10 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
                         for (QueryDocumentSnapshot document : task.getResult()) {
 
                             try {
-                                String userName = document.getId();
-                                userAccounts.add(userName);
+                                if (!document.getId().equalsIgnoreCase(userEmail)) {
+                                    String userName = document.getId();
+                                    userAccounts.add(userName);
+                                }
                             } catch (NullPointerException nPEX) {
                                 Log.w(TAG, "Got an exception while trying to retrieve account data.");
                                 return;
@@ -343,16 +284,6 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
 
                     }
                 });
-    }
-
-
-    private String getFirstWord(String text) {
-        int index = text.indexOf(' ');
-        if (index > -1) { // Check if there is more than one word.
-            return text.substring(0, index); // Extract first word.
-        } else {
-            return text; // Text is the first word itself.
-        }
     }
 
     public void init(View v) {
@@ -379,7 +310,7 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
         ownAccount.setOnClickListener(this);
         makeTransaction.setOnClickListener(this);
 
-
+        //Gets the data from DB
         spinners();
     }
 
@@ -387,4 +318,5 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
     public void sendInput(boolean input) {
         otherAccountBoolen = input;
     }
+
 }
